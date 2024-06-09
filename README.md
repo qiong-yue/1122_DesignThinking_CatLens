@@ -5,3 +5,4 @@
 * cat_intro.csv 為不同貓咪品種和其對應的介紹網站網址
 * Fooocus生圖.pdf: 生圖的方式、prompt等
 * Demo 影片：https://youtu.be/ZMgICZKcfIg
+* 貓咪資料集：https://drive.google.com/drive/folders/113oIYCXf7EmyPYkAOQQJ5w2ETGnoOYa1?usp=sharing
