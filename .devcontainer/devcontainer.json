@@ -1,0 +1,66 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Ubuntu-22.04",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+	// "build": {
+	// 	"dockerfile": "Dockerfile"
+	// },
+	// "dockerComposeFile": "../docker-compose.yml",
+	// "service": "backend",
+	// "overrideCommand": true,
+	// "workspaceFolder": "/llamaindex_redis_ollama",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		// "ghcr.io/devcontainers/features/conda:1": {},
+		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+			"packages": "curl,git,wget,vim,sudo,python-is-python3",
+			"upgradePackages": true
+		},
+		"ghcr.io/devcontainers-contrib/features/poetry:2": {},
+		// "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+	},
+
+	// "mounts": [
+	// 	{
+	// 		"source": "${localWorkspaceFolder}",
+	// 		"target": "${containerWorkspaceFolder}",
+	// 		"type": "bind",
+	// 		"read_only": false,
+	// 		"consistency": "cached",
+	// 	},{
+	// 		"target": "${containerWorkspaceFolder}/.venv",
+	// 		"type": "volume",
+	// 	}
+	// ],
+
+	"runArgs": [
+		"--gpus",
+		"all",
+	// 	"device=1",
+		"--shm-size=7gb"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	"onCreateCommand": "poetry config virtualenvs.in-project true",
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "cd ${containerWorkspaceFolder} && poetry env use /opt/conda/bin/python3 && poetry lock --no-update && poetry install --no-root",
+	"postCreateCommand": "cd ${containerWorkspaceFolder} && poetry lock --no-update && poetry install --no-root && poetry run playwright install chromium --with-deps",
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-toolsai.jupyter",
+				"ms-python.python",
+				"ms-python.isort",
+				"ms-python.black-formatter"
+			]
+		}
+	},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "vscode",
+}
